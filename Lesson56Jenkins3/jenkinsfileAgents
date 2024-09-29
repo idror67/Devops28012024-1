@@ -7,14 +7,14 @@ pipeline {
             }
         }
         stage('Running python code from git on Agent1') {
-            agent { label 'agent1' }
+            // agent { label 'agent1' }
             steps {
                 git branch: 'main', url: 'https://github.com/fullstackjava082023/Jenkins1HW.git'
                 sh 'python3 main.py > output.txt'            
             }
         }
         stage('Running java code from git on Agent2') {
-            agent { label 'agent2' }
+            // agent { label 'agent2' }
             steps {
                 git branch: 'main', url: 'https://github.com/fullstackjava082023/test2.git'
                 sh """ cd src
