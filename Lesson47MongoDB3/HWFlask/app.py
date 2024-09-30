@@ -5,7 +5,7 @@ import os
 load_dotenv()
 
 
-db_to_use = os.getenv("DATABASE_TYPE", "MYSQL") # "MYSQL" or "MONGO"
+db_to_use = os.getenv("DATABASE_TYPE", "MONGO") # "MYSQL" or "MONGO"
 
 if db_to_use == "MYSQL":
 	from data_sql import (get_contacts, create_contact, delete_contact, 
@@ -23,6 +23,7 @@ app = Flask(__name__)
 
 
 
+
 ##################################################################
 ########## ROUTES ################################################
 ##################################################################
@@ -37,25 +38,50 @@ def addContact():
     return render_template('addContactsForm.html')
 
 
+# @app.route('/createContact', methods=['POST'])
+# def createContact():
+# 	# adding the contact to the list (to the database)
+# 	fullname = request.form['fullname']
+# 	email = request.form['email']
+# 	phone = request.form['phone']
+# 	gender = request.form['gender']
+# 	photo = request.files['photo']
+# 	if not check_contact_exist(fullname, email):			
+# 		if photo:
+# 			# create a full name for the file to be saved
+# 			file_path = 'HWFLASK/static/images/' + fullname + '.png'   # "hound"   -> 'static/images/hound.png
+# 			# save the file in the server
+# 			photo.save(file_path)   
+	
+# 		create_contact(fullname, phone, email, gender, f'{fullname}.png')
+# 		return redirect('/viewContacts')
+# 	else: 
+# 		return render_template('addContactsForm.html', message = 'Contact already exists')
+
 @app.route('/createContact', methods=['POST'])
 def createContact():
-	# adding the contact to the list (to the database)
-	fullname = request.form['fullname']
-	email = request.form['email']
-	phone = request.form['phone']
-	gender = request.form['gender']
-	photo = request.files['photo']
-	if not check_contact_exist(fullname, email):			
-		if photo:
-			# create a full name for the file to be saved
-			file_path = 'HWFLASK/static/images/' + fullname + '.png'   # "hound"   -> 'static/images/hound.png
-			# save the file in the server
-			photo.save(file_path)   
-	
-		create_contact(fullname, phone, email, gender, f'{fullname}.png')
-		return redirect('/viewContacts')
-	else: 
-		return render_template('addContactsForm.html', message = 'Contact already exists')
+    fullname = request.form['fullname']
+    email = request.form['email']
+    phone = request.form['phone']
+    gender = request.form['gender']
+    photo = request.files['photo']
+
+    if not check_contact_exist(fullname, email):            
+        if photo:
+            # Use app.root_path to get the absolute path
+            directory = os.path.join(app.root_path, 'static/images/')
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            file_path = os.path.join(directory, fullname + '.png')
+
+            # Save the file in the server
+            photo.save(file_path)   
+    
+        create_contact(fullname, phone, email, gender, f'{fullname}.png')
+        return redirect('/viewContacts')
+    else: 
+        return render_template('addContactsForm.html', message='Contact already exists')
+
  
 
 @app.route('/viewContacts')
