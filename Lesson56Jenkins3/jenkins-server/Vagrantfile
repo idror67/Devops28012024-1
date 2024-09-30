@@ -15,8 +15,8 @@ Vagrant.configure("2") do |config|
 
     # Enable drag and drop
     config.vm.provider "virtualbox" do |vb|
-        vb.name = "Jenkins_Ubuntu2"
-        vb.gui = false
+        vb.name = "Jenkins_Ubuntu"
+        vb.gui = true
         vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
         vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
         vb.memory = "2048"
