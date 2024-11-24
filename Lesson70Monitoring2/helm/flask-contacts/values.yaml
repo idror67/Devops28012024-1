@@ -1,0 +1,30 @@
+replicaCount: 2
+
+
+
+# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: ClusterIP
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  port: 80
+  flaskPort: 5052
+  mongoExpressPort: 8081
+
+
+database:
+  # This sets the database type supported values are: MYSQL, MONGO - uncomment and add value to use.
+  type: MONGO
+
+prometheus-mongodb-exporter:
+  mongodb:
+    uri: "mongodb://mongo-service:27017"
+
+  serviceMonitor:
+    enabled: true
+    additionalLabels: 
+      release: prometheus
+
+
+
+
