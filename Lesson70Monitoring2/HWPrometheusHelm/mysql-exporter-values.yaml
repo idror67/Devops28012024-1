@@ -2,8 +2,10 @@ serviceMonitor:
   enabled: true
   additionalLabels:
     release: prometheus
- 
-
+  namespace: default
+  endpoints:
+    - port: metrics
+      interval: 30s
 
 mysql:
   host: "mysql-service"
