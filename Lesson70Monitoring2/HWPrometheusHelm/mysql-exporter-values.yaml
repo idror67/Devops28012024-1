@@ -1,11 +1,9 @@
 serviceMonitor:
   enabled: true
   additionalLabels:
-    release: kube-prometheus-stack
-  namespace: default
-  endpoints:
-    - port: metrics
-      interval: 30s
+    release: prometheus
+  
+ 
 
 mysql:
   host: "mysql-service"
