@@ -1,7 +1,7 @@
 serviceMonitor:
   enabled: true
   additionalLabels:
-    release: prometheus
+    release: kube-prometheus-stack
   namespace: default
   endpoints:
     - port: metrics
