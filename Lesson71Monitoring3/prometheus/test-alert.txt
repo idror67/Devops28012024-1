@@ -1,0 +1,13 @@
+curl -X POST http://<your-app-host>:<port>/alert \
+     -H "Content-Type: application/json" \
+     -d '{
+           "alert_name": "High CPU Usage",
+           "severity": "critical",
+           "details": {
+               "node": "node-1",
+               "threshold": "90%"
+           }
+         }'
+
+
+http://servicename.namespace.svc.vbvb:5054/alert

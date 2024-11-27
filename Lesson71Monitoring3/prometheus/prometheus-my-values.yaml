@@ -1,0 +1,29 @@
+kube-prometheus-stack:
+  alertmanager:
+    config:
+      route:
+        receiver: 'email-receiver' # default receiver
+        routes:
+        - match:
+            alertname: FlaskServiceDown # alert name
+          # receiver: 'webhook-receiver' # receiver name
+            receiver: 'email-receiver'
+          continue: true # continue to evaluate other routes
+      receivers:
+      - name: 'null'
+      - name: 'webhook-receiver'
+        webhook_configs:
+        - url: "http://alert-service.default.svc.cluster.local:5054/alert"
+          send_resolved: true
+      - name: 'email-receiver'
+        email_configs:
+          - to: 'shashkist@gmail.com'
+            from: 'shashkist@gmail.com'
+            smarthost: 'smtp.gmail.com:587'
+            auth_username: 'shashkist@gmail.com'
+            auth_password: 'password'
+            text: "you have an alert from prometheus"
+            headers:
+              subject: 'Prometheus Mail Alerts'
+          
+

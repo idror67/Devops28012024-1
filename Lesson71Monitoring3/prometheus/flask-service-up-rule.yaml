@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flask-service-alerts
+  labels:
+    release: flask-prometheus
+spec:
+  groups:
+    - name: flask_service_alerts
+      rules:
+        - alert: FlaskServiceDown
+          expr: absent(up{service="flask-app-service"})
+          for: 10s
+          labels:
+            severity: critical
+          annotations:
+            summary: "Flask Service is Down"
+            description: "The Flask service (flask-app-service) is not responding for more than 10 seconds."
+             
+       
