@@ -1,0 +1,11 @@
+# SSH configuration for Linode server
+Host ARYA # this is the alias
+    HostName 172.232.217.85 # this is the ip address
+    User root # this is the username
+    IdentityFile ~/.ssh/id_ed25519 # this is the private key file
+	
+
+Host ilia # this is the alias
+    HostName 172.232.217.85 # this is the ip address
+    User root # this is the username
+    IdentityFile ~/.ssh/id_ed25519 # this is the private key file
