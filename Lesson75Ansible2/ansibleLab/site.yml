@@ -1,0 +1,65 @@
+# installing the apache 
+- name: Install Apache
+  hosts: web-servers
+  become: true
+
+  tasks:
+
+  # ===========Install apache and php================
+        
+    - name: Install Apache and php packages Ubuntu 
+      package:
+        name: 
+          - "{{ apache }}"
+          - "{{ php }}"
+        update_cache: yes        
+        state: latest
+ 
+   
+# ============CENTOS=======================
+    - name: Start Apache Centos
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'CentOS'
+    
+    - name: Open port 80
+      firewalld:
+        port: 80/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+      when: ansible_distribution == 'CentOS'
+
+      
+# installng maria db
+- name: Install Mariadb
+  hosts: db-servers
+  become: true
+
+  tasks:
+
+    - name: Install Mariadb
+      package:
+        name: 
+          - mariadb-server
+        update_cache: yes        
+        state: latest
+
+    
+
+# 1 -> install mysql root/admin 
+# 2 -> install python .env (user password)
+# 3 -> install .venv
+# 4 -> install requirements.txt
+# 5 -> stop existing application on port 5000
+# 6 -> run the app again on port 5000
+# 7 -> open port 5000
+
+# install with docker-compose
+# 1 -> install docker
+# 2 -> install docker-compose
+# 3 -> copy the docker-compose.yml file
+# 4 -> docker-compose down (to be sure that app is down)
+# 5 -> docker-compose up
