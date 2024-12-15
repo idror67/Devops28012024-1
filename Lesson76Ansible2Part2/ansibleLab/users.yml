@@ -1,0 +1,22 @@
+- name: Users play
+  hosts: all
+  become: true
+  tasks:
+    - name: Create users
+      user:
+        name: "Arya"
+        groups: "root"
+        # password: "arja"
+        password: $6$xTDFtXKlBvVXlEkI$Cvg7FrCpq31V8V3V75lBljgTMpFiWRqkbYh9RxjslbqLx7UJ9.CwrODiuGSH89GAt/tdJmQtoooEN43lTkT7g.
+    
+    - name: add ssh key
+      authorized_key:
+        user: "Arya"
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINaRxxH383g+iLqhxW3D0M6ieLhrlM1m/Ra2/qn8/SHJ default"
+    
+    - name: add Arya to sudoers
+      copy:
+        dest: /etc/sudoers.d/Arya
+        content: "Arya ALL=(ALL) NOPASSWD: ALL"
+        owner: root
+        group: root

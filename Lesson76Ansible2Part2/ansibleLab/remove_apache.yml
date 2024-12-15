@@ -1,0 +1,19 @@
+- name: Remove Apache
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Remove Apache packages
+      apt:
+        name: apache2
+        state: absent
+
+    - name: Remove php for apache
+      apt:
+        name: libapache2-mod-php
+        state: absent
+    
+    
+# remove apache should remove apache and php from 
+# ALL servers also from centos and from
+# ubuntu and it should be written in one task (generic)
