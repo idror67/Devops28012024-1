@@ -24,3 +24,4 @@ ansible-playbook site.yml --limit db-servers
   
 # encrypt password
   openssl passwd -6 'arja'
+  
