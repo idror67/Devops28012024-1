@@ -1,0 +1,2 @@
+# give all privileges without password to user Arya
+Arya ALL=(ALL) NOPASSWD: ALL

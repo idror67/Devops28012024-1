@@ -1,0 +1,62 @@
+# installing the apache 
+- name: Provision website
+  hosts: web-servers
+  become: true
+  tasks:
+  # ===========Install apache and php================
+    - name: Install Apache and php packages 
+      tags: apache, install, php
+      package:
+        name: 
+          - "{{ apache }}"
+          - "{{ php }}"
+        update_cache: yes        
+        state: latest
+
+    # - name: Copy website html file
+    #   tags: apache, html
+    #   copy:
+    #     src: index.html
+    #     dest: /var/www/html/index.html
+
+    - name: Copy website template
+      tags: apache, html
+      template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+    
+# ============CENTOS=======================
+    - name: Start Apache Centos
+      tags: apache, start
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'CentOS'
+    
+    - name: Open port 80
+      tags: apache, port
+      firewalld:
+        port: 80/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+      when: ansible_distribution == 'CentOS'
+
+
+
+# ============DB SERVERS=======================
+# installng maria db
+- name: Install Mariadb
+  hosts: db-servers
+  become: true
+  tasks:
+    - name: Install Mariadb
+      package:
+        name: 
+          - mariadb-server
+        update_cache: yes        
+        state: latest
+
+
+    

@@ -1,0 +1,8 @@
+- name: Test Hello world
+  tags: debug
+  debug:
+    msg: "Hello World, {{ myvar }}"
+- name: Test Hello world2
+  tags: debug2
+  debug:
+    msg: "Hello World2  {{ another_var }}"

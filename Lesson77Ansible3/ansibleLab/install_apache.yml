@@ -1,0 +1,39 @@
+# installing the apache 
+- name: Install Apache
+  hosts: all
+  become: true
+
+  tasks:
+
+  # ===========Install apache and php================
+        
+    - name: Install Apache and php packages
+      package:
+        name: 
+          - "{{ apache }}"
+          - "{{ php }}"
+        update_cache: yes        
+        state: latest
+      
+
+   
+# ============CENTOS=======================
+    - name: Start Apache Centos
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'CentOS'
+    
+    - name: Open port 80
+      firewalld:
+        port: 80/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+      when: ansible_distribution == 'CentOS'
+
+      
+
+
+    
