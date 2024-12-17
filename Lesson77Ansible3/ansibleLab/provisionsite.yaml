@@ -1,0 +1,8 @@
+- name: Provision website
+  hosts: web-servers
+  become: true
+  roles:
+    - provisionsite
+    - role: geerlingguy.mysql
+      vars:
+        mysql_root_password: admin
