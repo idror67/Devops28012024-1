@@ -1,0 +1,4 @@
+---
+my_name: "Arya"
+apache: "{{ ansible_distribution == 'Ubuntu' and 'apache2' or (ansible_distribution == 'CentOS' and 'httpd') }}"
+php: "{{ ansible_distribution == 'Ubuntu' and 'libapache2-mod-php' or (ansible_distribution == 'CentOS' and 'php') }}"
