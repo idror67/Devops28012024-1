@@ -1,0 +1,4 @@
+.venv
+.cfg
+.vagrant
+.terraform

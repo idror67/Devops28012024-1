@@ -1,0 +1,15 @@
+---
+- name: 'Install required packages'
+  hosts: centos
+  become: yes
+  vars:
+    packages:
+      - httpd
+      - make
+      - vim
+  tasks:
+    - yum:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items: "{{ packages }}"
